@@ -10,6 +10,21 @@
     <packaging>war</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--  让idea能够识别jsp中的隐含对象 开始-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--  让idea能够识别jsp中的隐含对象 结束-->
         <!-- spring mvc 开始 -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -38,8 +53,6 @@
             <version>1.9.13</version>
         </dependency>
         <!-- 对json的支持结束，只需要配置上jar包就可以了-->
-
-
     </dependencies>
 
 </project>

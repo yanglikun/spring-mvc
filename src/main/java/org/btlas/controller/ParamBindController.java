@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by yanglikun on 2016/8/23.
@@ -23,6 +26,16 @@ public class ParamBindController {
     public String pojo(User user) {
         System.out.println("pojo paramBind:" + user);
         return "index";
+    }
+
+    @RequestMapping("/servlet")
+    public void servlet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        System.out.println("servlet paramBind:" + req.getRequestURI());
+        resp.setContentType("text/json");
+        resp.setCharacterEncoding("utf-8");
+        PrintWriter writer = resp.getWriter();
+        writer.write("{name:'zs'}");
+        writer.close();
     }
 
     @RequestMapping("/url/{id}/{name}")
