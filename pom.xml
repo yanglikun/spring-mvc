@@ -10,6 +10,7 @@
     <packaging>war</packaging>
 
     <dependencies>
+        <!-- spring mvc 开始 -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -19,8 +20,26 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>3.2.9.RELEASE</version>
+            <version>3.2.17.RELEASE</version>
         </dependency>
+        <!-- spring mvc结束-->
+        <!-- jstl 支持开始 -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- jstl 支持结束 -->
+
+        <!-- 对json的支持开始，只需要配置上jar包就可以了-->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <!-- 对json的支持结束，只需要配置上jar包就可以了-->
+
+
     </dependencies>
 
 </project>
