@@ -45,12 +45,4 @@ public class ParamBindController {
     }
 
 
-    @RequestMapping("/test2")
-    public
-    @ResponseBody
-    User messageConvert(@RequestBody User user, HttpServletRequest req) {
-        user.setName(user.getName() + ":add");
-        return user;
-    }
-
 }

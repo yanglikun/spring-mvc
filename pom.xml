@@ -10,13 +10,6 @@
     <packaging>war</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.1</version>
-            <scope>compile</scope>
-        </dependency>
-
         <!--  让idea能够识别jsp中的隐含对象 开始-->
         <dependency>
             <groupId>javax.servlet</groupId>
