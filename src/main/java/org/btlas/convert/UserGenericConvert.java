@@ -22,7 +22,6 @@ public class UserGenericConvert implements GenericConverter {
 
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         UserConvertAnnotation annotation = targetType.getAnnotation(UserConvertAnnotation.class);
-
         String[] split = ((String) source).split(":");
         User user = new User();
         user.setName(split[0]);

@@ -46,6 +46,12 @@
             <version>1.9.13</version>
         </dependency>
         <!-- 对json的支持结束，只需要配置上jar包就可以了-->
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
     </dependencies>
 
 </project>
