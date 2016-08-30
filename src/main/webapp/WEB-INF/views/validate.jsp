@@ -14,7 +14,7 @@
 </head>
 <body>
 数据校验<br/>
-<form:form modelAttribute="myUser">
+<form:form modelAttribute="user">
     <form:errors path="*"/>
 </form:form>
 姓名错误信息:<form:errors path="myUser.name"/><br/>

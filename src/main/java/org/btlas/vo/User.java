@@ -2,8 +2,6 @@ package org.btlas.vo;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -11,10 +9,8 @@ import java.util.Date;
  */
 public class User {
 
-    @NotNull(message = "姓名不能为空")
     private String name;
 
-    @Min(value = 18, message = "年龄不能小于18")
     private Integer age;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

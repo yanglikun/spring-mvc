@@ -16,6 +16,7 @@ public class User {
     @NotNull(message = "年龄不能为空", groups = {org.btlas.vo.User.ValidatorGroup.Save.class})
     private Integer age;
 
+    @NotNull(message = "{NotNull.User.birthday}")
     private Date birthday;
 
     public Date getBirthday() {
