@@ -6,8 +6,6 @@ import org.btlas.vo.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Date;
-
 /**
  * Created by yanglikun on 2016/8/25.
  */
@@ -35,9 +33,4 @@ public class ConversionController {
         return "dataExpose";
     }
 
-    @RequestMapping("/date")
-    public String customConversion(Date date) {
-        System.out.println("date:" + date);
-        return "dataExpose";
-    }
 }

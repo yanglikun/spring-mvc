@@ -1,6 +1,8 @@
 <%@ page import="java.util.Enumeration" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>Title</title>
@@ -39,25 +41,33 @@
         <td>${user.name},${user.age}</td>
     </tr>
 </table>
+<hr/>
+Session的所有属性<br/>
+<%
+    Enumeration sessionAttributeNames = request.getSession().getAttributeNames();
+    while (sessionAttributeNames.hasMoreElements()) {
+        String sessionAttrName = (String)sessionAttributeNames.nextElement();
+        out.print(sessionAttrName + "=" + request.getSession().getAttribute(sessionAttrName));
+    }
+%>
+<hr/>
+数据格式化测试<br/>
+${name}<br/>
+======
+${user.birthday}
+<form:input path="user.birthday"/>
+======
+
+
 
 <hr/>
 Request的所有属性<br/>
 <%
     Enumeration attributeNames = request.getAttributeNames();
     while (attributeNames.hasMoreElements()) {
-        Object o = attributeNames.nextElement();
-        out.print(o + "=" + request.getSession().getAttribute((o.toString())));
+        String reqAttrName = (String)attributeNames.nextElement();
+        out.print(reqAttrName + "=" + request.getAttribute(reqAttrName));
         out.print("<br/>");
-    }
-%>
-
-<hr/>
-Session的所有属性<br/>
-<%
-    Enumeration sessionAttributeNames = request.getSession().getAttributeNames();
-    while (sessionAttributeNames.hasMoreElements()) {
-        Object o1 = sessionAttributeNames.nextElement();
-        out.print(o1 + "=" + request.getSession().getAttribute((o1.toString())));
     }
 %>
 </body>

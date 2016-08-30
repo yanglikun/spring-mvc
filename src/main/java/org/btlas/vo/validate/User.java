@@ -1,6 +1,4 @@
-package org.btlas.vo;
-
-import org.springframework.format.annotation.DateTimeFormat;
+package org.btlas.vo.validate;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -11,13 +9,13 @@ import java.util.Date;
  */
 public class User {
 
-    @NotNull(message = "姓名不能为空")
+    @NotNull(message = "姓名不能为空", groups = {org.btlas.vo.User.ValidatorGroup.Query.class, org.btlas.vo.User.ValidatorGroup.Save.class})
     private String name;
 
-    @Min(value = 18, message = "年龄不能小于18")
+    @Min(value = 18, message = "年龄不能小于18", groups = {org.btlas.vo.User.ValidatorGroup.Save.class})
+    @NotNull(message = "年龄不能为空", groups = {org.btlas.vo.User.ValidatorGroup.Save.class})
     private Integer age;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date birthday;
 
     public Date getBirthday() {
@@ -42,14 +40,6 @@ public class User {
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public  interface ValidatorGroup {
-        interface Save {
-        }
-
-        interface Query {
-        }
     }
 
     @Override
