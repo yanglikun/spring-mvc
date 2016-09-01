@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * Created by yanglikun on 2016/8/25.
@@ -20,6 +21,7 @@ public class MessageConvertController {
     @ResponseBody
     User messageConvert(@RequestBody User user, HttpServletRequest req) {
         user.setName(user.getName() + ":add");
+        user.setBirthday(new Date());
         return user;
     }
 

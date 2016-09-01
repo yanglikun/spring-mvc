@@ -19,8 +19,8 @@ import java.util.List;
 public class ValidatorController {
 
     @RequestMapping("/test")
-    public String test(@Validated User user, BindingResult userBR, ModelMap model) {
-        model.put("user", user);
+    public String test(@Validated User myUser, BindingResult userBR, ModelMap model) {
+        model.put("user", myUser);
         printBindingResult(userBR);
         return "validate";
     }

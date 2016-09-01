@@ -1,12 +1,15 @@
 package org.btlas.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
  * Created by yanglikun on 2016/8/23.
  */
+@XmlRootElement
 public class User {
 
     private String name;
@@ -14,6 +17,7 @@ public class User {
     private Integer age;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format="yyyyMMdd")
     private Date birthday;
 
     public Date getBirthday() {

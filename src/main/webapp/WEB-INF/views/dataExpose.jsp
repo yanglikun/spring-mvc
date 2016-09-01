@@ -55,7 +55,7 @@ Session的所有属性<br/>
 ${name}<br/>
 ======
 ${user.birthday}
-<form:input path="user.birthday"/>
+
 ======
 
 

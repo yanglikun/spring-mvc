@@ -11,13 +11,15 @@
 
     <context:component-scan base-package="org.btlas.controller"/>
 
-    <mvc:annotation-driven conversion-service="conversionService">
+    <mvc:annotation-driven conversion-service="conversionService" validator="validator">
         <!-- 如果属性 register-defaults="false" 默认注册的convert就没了,默认值为true-->
         <mvc:message-converters>
             <bean class="org.btlas.messageConvert.UserMessageConvert"></bean>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"></bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <!-- 数据格式转换 begin -->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
             <set>
@@ -26,13 +28,56 @@
         </property>
     </bean>
 
+    <!-- 视图解析器 begin -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="100"/>
         <property name="prefix" value="/WEB-INF/views/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="0"/>
+        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+        <property name="defaultViews">
+            <list>
+                <!--<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>-->
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView"/>
+            </list>
+        </property>
+    </bean>
 
-    <bean class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="i18n/messages"></property>
+    <bean id="contentNegotiationManager"
+          class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="defaultContentType" value="text/html"/>
+        <property name="favorPathExtension" value="false"/>
+        <property name="favorParameter" value="true"/>
+        <property name="parameterName" value="mediaType"/>
+        <property name="ignoreAcceptHeader" value="true"/>
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html"/>
+                <entry key="xml" value="application/xml"/>
+                <entry key="json" value="application/json"/>
+            </map>
+        </property>
+    </bean>
+
+
+
+    <!-- 数据校验 begin-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="cacheSeconds" value="0"></property>
+        <property name="fileEncodings" value="utf-8"/>
+        <property name="basenames">
+            <list>
+                <value>classpath:i18n/messages</value>
+            </list>
+        </property>
     </bean>
 
 </beans>
