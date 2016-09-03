@@ -1,0 +1,3 @@
+测试velocity<br/>
+$stringUtils.substring("abcde",2)<br/>
+$!name

@@ -2,13 +2,15 @@ package org.btlas.vo.customviewtype;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import java.util.Date;
 
 /**
  * Created by yanglikun on 2016/9/1.
  */
-public class UserJson {
+@XStreamAlias("user")
+public class User {
 
     private String name;
 

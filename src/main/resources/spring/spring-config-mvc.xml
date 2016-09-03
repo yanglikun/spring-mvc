@@ -28,19 +28,82 @@
         </property>
     </bean>
 
-    <!-- 视图解析器 begin -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="order" value="100"/>
-        <property name="prefix" value="/WEB-INF/views/"></property>
-        <property name="suffix" value=".jsp"></property>
-    </bean>
-    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+    <!-- 视图扩展名解析器，优先级最高 -->
+    <bean class="org.btlas.framework.viewresolver.ViewNameExtensionViewResolver">
         <property name="order" value="0"/>
+        <property name="viewResolvers">
+            <map>
+                <entry key="jsp" value-ref="internalResourceViewResolver"/>
+                <entry key="vm" value-ref="velocityViewResolver"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <!-- jsp视图解析器-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="100"/>
+        <property name="prefix" value="/WEB-INF/views/jsp/"></property>
+        <!--<property name="suffix" value=".jsp"></property>-->
+    </bean>
+
+
+    <!-- velocity 视图解析器-->
+    <bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+        <property name="order" value="1"/>
+        <property name="layoutUrl" value="layout/default.vm"/>
+        <property name="cache" value="false"/>
+        <!--<property name="suffix" value=".vm"/>-->
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="dateToolAttribute" value="dateTool"/>
+        <property name="numberToolAttribute" value="numberTool"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="attributesMap" ref="velocityTools"/>
+        <property name="redirectHttp10Compatible" value="false"/>
+    </bean>
+    <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/views/vtl/"/>
+        <property name="velocityProperties">
+            <props>
+                <prop key="input.encoding">UTF-8</prop>
+                <prop key="output.encoding">UTF-8</prop>
+                <prop key="contentType">text/html;charset=UTF-8</prop>
+                <prop key="velocimacro.library">macros/macro.vm</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="velocityTools" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="stringUtils">
+                    <bean class="org.apache.commons.lang.StringUtils"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 内容协商视图解析器 -->
+    <!-- org.springframework.web.servlet.view.ContentNegotiatingViewResolver-->
+    <bean id="contentNegotiatingViewResolver"
+          class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="1"/>
         <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
         <property name="defaultViews">
             <list>
+                <!-- jackson的json -->
                 <!--<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>-->
-                <bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView"/>
+                <!-- fastjson的json-->
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView">
+                    <property name="extractValueFromSingleKeyModel" value="true"/>
+                </bean>
+                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+                    <constructor-arg>
+                        <bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+                            <property name="autodetectAnnotations" value="true"/>
+                        </bean>
+                    </constructor-arg>
+                </bean>
             </list>
         </property>
     </bean>
@@ -48,9 +111,13 @@
     <bean id="contentNegotiationManager"
           class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="defaultContentType" value="text/html"/>
+        <!-- 忽略文件扩展名解析mediatype-->
         <property name="favorPathExtension" value="false"/>
+        <!-- 启用url参数值解析mediatype-->
         <property name="favorParameter" value="true"/>
+        <!-- url参数名mediatype-->
         <property name="parameterName" value="mediaType"/>
+        <!-- 忽略请求头-->
         <property name="ignoreAcceptHeader" value="true"/>
         <property name="mediaTypes">
             <map>
@@ -60,8 +127,6 @@
             </map>
         </property>
     </bean>
-
-
 
     <!-- 数据校验 begin-->
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">

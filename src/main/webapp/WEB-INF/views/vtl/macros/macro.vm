@@ -1,0 +1,3 @@
+#macro( testMacro )
+这里是宏
+#end
