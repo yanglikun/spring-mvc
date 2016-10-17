@@ -1,5 +1,6 @@
 package org.btlas.controller;
 
+import org.btlas.vo.UserVO;
 import org.btlas.vo.customviewtype.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +15,12 @@ import java.util.Date;
 public class CustomViewTypeController {
 
     @RequestMapping("/test")
-    public User testJson() {
+    public User testJson(UserVO haha,String name,User aa) {
         User userJson = new User();
         userJson.setName("张三");
         userJson.setAge(23);
         userJson.setBirthday(new Date());
+//        model.clear();
         return userJson;
     }
 

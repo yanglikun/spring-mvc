@@ -9,7 +9,7 @@
     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-    <context:component-scan base-package="org.btlas.controller"/>
+    <context:component-scan base-package="org.btlas.controller,test"/>
 
     <mvc:annotation-driven conversion-service="conversionService" validator="validator">
         <!-- 如果属性 register-defaults="false" 默认注册的convert就没了,默认值为true-->
