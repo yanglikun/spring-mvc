@@ -44,7 +44,7 @@
     <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="order" value="100"/>
         <property name="prefix" value="/WEB-INF/views/jsp/"></property>
-        <!--<property name="suffix" value=".jsp"></property>-->
+        <property name="suffix" value=".jsp"></property>
     </bean>
 
 
