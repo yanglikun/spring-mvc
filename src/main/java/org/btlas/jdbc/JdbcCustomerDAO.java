@@ -11,6 +11,11 @@ public class JdbcCustomerDAO {
     }
 
 
+    public void save1(Customer customer) {
+        jdbcTemplate.execute("insert into t_customer(name,age) value ('name-2',20)");
+    }
+
+
     public JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
