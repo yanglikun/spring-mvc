@@ -4,10 +4,5 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-autowire="byType">
-    <bean id="user" class="spring.autowire.vo.User"></bean>
-    <bean id="address1" class="spring.autowire.vo.Address">
-        <property name="city" value="bj"></property>
-        <property name="road" value="科创十一街"></property>
-    </bean>
-
+    <context:component-scan base-package="com.github.yanglikun.autowriedxml"/>
 </beans>
